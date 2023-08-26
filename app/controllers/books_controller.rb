@@ -2,10 +2,10 @@ class BooksController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
 
-  def new
-    @book = Book.new
-    @user = current_user
-  end
+  # def new
+  #   @book = Book.new
+  #   @user = current_user
+  # end
 
   # 投稿データの保存
   def create
@@ -30,7 +30,9 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    @books = Book.page(params[:page])
     @user = @book.user
+    @book_comment = BookComment.new
   end
 
   def edit
@@ -71,5 +73,6 @@ class BooksController < ApplicationController
     @user = @book.user
     redirect_to(books_path) unless @user == current_user
   end
+  
 
 end
